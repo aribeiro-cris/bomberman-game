@@ -13,6 +13,4 @@ public class Background {
         picture.draw();
     }
 
-    //800 / 31 cols x = 25.81
-    // 363 / 14 rows y = 25.93
 }

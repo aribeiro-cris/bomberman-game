@@ -2,19 +2,10 @@ package project.bomberman;
 
 import org.academiadecodigo.simplegraphics.graphics.Color;
 
-public class Bomberman {
+public class Bomberman extends Players {
 
-    protected Position pos;
 
     public Bomberman(Background background, int[] coordinates, String picture) {
-        this.pos = new Position(background, coordinates, picture);
-    }
-
-    void move(Background background) {
-    }
-
-
-    public Position getPos() {
-        return pos;
+        super(background, coordinates, picture);
     }
 }
