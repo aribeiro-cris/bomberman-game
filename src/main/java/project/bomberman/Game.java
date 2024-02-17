@@ -1,7 +1,5 @@
 package project.bomberman;
 
-import org.academiadecodigo.simplegraphics.graphics.Color;
-
 public class Game {
 
     public static final String RESOURCES_PREFIX = "src/main/resources/";
@@ -10,6 +8,7 @@ public class Game {
     private int numberOfPlayers = 4;
     //delay for the animation
     private int delay;
+    static KeyboardLogic keyboard;
 
     public Game(int delay) {
         this.background = new Background();
@@ -20,13 +19,14 @@ public class Game {
         Background background = new Background();
 
         players = new Players[numberOfPlayers];
+        keyboard = new KeyboardLogic();
         //human goes to index zero
         players[0] = PlayersFactory.getNewBomberman(background, initialPosition(background, 0), Game.RESOURCES_PREFIX + "bomberman.png");
         System.out.println("test to see if the bomberman was created.");
         //AIPlayers start in index 1
         for (int i = 1; i < players.length; i++) {
             players[i] = PlayersFactory.getNewPcPlayers(background, initialPosition(background, i), Game.RESOURCES_PREFIX + "PcPlayers" + i + ".png");
-            System.out.println("test to see if the AI player was created.");
+            System.out.println("test to see if the PC Player was created.");
         }
     }
 
@@ -43,6 +43,8 @@ public class Game {
     }
 
     public void movePlayers() {
+        players[0].setDirection(keyboard.getDirection());
+
         for (int i = 1; i < players.length; i++) {
             players[i].move(background);
         }
