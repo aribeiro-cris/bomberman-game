@@ -1,5 +1,4 @@
 package project.bomberman;
-;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Position {
@@ -8,10 +7,10 @@ public class Position {
     private int row;
     private Picture bomberman;
 
-    public Position(Background background, int[] coordinates, String picture) {
+    public Position(Background background, int[] coordinates, double CellSize, String picture) {
         this.col = coordinates[0];
         this.row = coordinates[1];
-        bomberman = new Picture(col,row, picture);
+        bomberman = new Picture(col*CellSize,row*CellSize, picture);
         bomberman.draw();
     }
 
