@@ -9,7 +9,7 @@ public class Background {
     private boolean[][] obstaculeTable;
 
     public Background() {
-        picture = new Picture(0,0, "src/main/resources/background.png");
+        picture = new Picture(0,0, Game.RESOURCES_PREFIX + "background.png");
         picture.draw();
         cols = 31;
         rows = 13;
@@ -71,6 +71,17 @@ public class Background {
     }
 
     public boolean getObstaculesPosition(int col, int row) {
+        if(col < 0 || row < 0){
+            return true;
+        }
         return obstaculeTable[col][row];
+    }
+
+    public int getCols() {
+        return cols;
+    }
+
+    public int getRows() {
+        return rows;
     }
 }

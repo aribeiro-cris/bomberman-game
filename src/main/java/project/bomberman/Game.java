@@ -1,5 +1,8 @@
 package project.bomberman;
 
+import java.util.ArrayList;
+import java.util.ListIterator;
+
 public class Game {
 
     public static final String RESOURCES_PREFIX = "src/main/resources/";
@@ -9,6 +12,7 @@ public class Game {
     //delay for the animation
     private int delay;
     static KeyboardLogic keyboard;
+    private ArrayList<Bomb> bombs = new ArrayList<>();
 
     public Game(int delay) {
         this.background = new Background();
@@ -21,7 +25,7 @@ public class Game {
         players = new Players[numberOfPlayers];
         keyboard = new KeyboardLogic();
         //human goes to index zero
-        players[0] = PlayersFactory.getNewBomberman(background, initialPosition(background, 0), 25.80,Game.RESOURCES_PREFIX + "bomberman.png");
+        players[0] = PlayersFactory.getNewBomberman(background, initialPosition(background, 0), 25.80,Game.RESOURCES_PREFIX + "NeoBattleIcon.png");
         System.out.println("test to see if the bomberman was created.");
         //AIPlayers start in index 1
         for (int i = 1; i < players.length; i++) {
@@ -38,6 +42,7 @@ public class Game {
             Thread.sleep(delay);
 
             movePlayers();
+            bombManagement();
             t++;
         }
         keyboard.keyboardStopped();
@@ -45,12 +50,26 @@ public class Game {
 
     public void movePlayers() {
         players[0].setDirection(keyboard.getDirection());
-        players[0].move(background);
-//        for (int i = 1; i < players.length; i++) {
-//            players[i].move(background);
-//        }
+        Bomb bomb = players[0].dropBomb(keyboard.getRequestBomb(), background);
+
+        if(bomb != null) {
+            bombs.add(bomb);
+        }
+
+        //players[0].move(background);
+        for (int i = 0; i < players.length; i++) {
+            players[i].move(background);
+        }
     }
 
+    public void bombManagement() {
+        for(int i = 0; i < bombs.size(); i++) {
+            if(bombs.get(i).decrementTimer() == 0) {
+                bombs.get(i).deleteBomb();
+                bombs.remove(i);
+            }
+        }
+    }
     //defines initial position for all Players
     public int[] initialPosition(Background background, int indexPlayer) {
         int[] coordinates = new int[2]; //takes y and x positions

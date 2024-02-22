@@ -5,13 +5,13 @@ public class Position {
 
     private int col;
     private int row;
-    private Picture bomberman;
+    private Picture picture1;
 
     public Position(Background background, int[] coordinates, double CellSize, String picture) {
         this.col = coordinates[0];
         this.row = coordinates[1];
-        bomberman = new Picture(col*CellSize,row*CellSize, picture);
-        bomberman.draw();
+        picture1 = new Picture(col*CellSize,row*CellSize, picture);
+        picture1.draw();
     }
 
     public int getCol() {
@@ -26,21 +26,21 @@ public class Position {
     //random movement to the bomberman
     public void moveRight(int distance, int cellSize) {
         col+= distance;
-        bomberman.translate((distance*cellSize),0);
+        picture1.translate((distance*cellSize),0);
     }
 
     public void moveLeft(int distance, int cellSize){
         col-= distance;
-        bomberman.translate((-distance*cellSize),0);
+        picture1.translate((-distance*cellSize),0);
     }
 
     public void moveUp(int distance, int cellSize) {
         row-= distance;
-        bomberman.translate(0, (-distance*cellSize));
+        picture1.translate(0, (-distance*cellSize));
     }
 
     public void moveDown(int distance, int cellSize) {
         row+=distance;
-        bomberman.translate(0, (distance*cellSize));
+        picture1.translate(0, (distance*cellSize));
     }
 }

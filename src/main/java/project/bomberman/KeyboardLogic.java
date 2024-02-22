@@ -9,6 +9,7 @@ public class KeyboardLogic implements KeyboardHandler {
 
     private Keyboard keyboard;
     private String direction;
+    private boolean requestBomb;
     KeyboardEvent right;
     KeyboardEvent right1;
     KeyboardEvent left;
@@ -78,6 +79,14 @@ public class KeyboardLogic implements KeyboardHandler {
         return direction;
     }
 
+    public boolean getRequestBomb() {
+        if(requestBomb) {
+            requestBomb = false;
+            return true;
+        } else {
+            return false;
+        }
+    }
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
             if(keyboardEvent.getKey() == keyboardEvent.KEY_RIGHT){
@@ -109,9 +118,8 @@ public class KeyboardLogic implements KeyboardHandler {
         direction = "stop";
         //Space
         if(keyboardEvent.getKey() == keyboardEvent.KEY_SPACE){
-
+            requestBomb = true;
         }
     }
-
 }
 
