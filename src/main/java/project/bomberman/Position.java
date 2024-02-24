@@ -22,6 +22,9 @@ public class Position {
         return row;
     }
 
+    public void deletePicture() {
+        picture1.delete();
+    }
 
     //random movement to the bomberman
     public void moveRight(int distance, int cellSize) {

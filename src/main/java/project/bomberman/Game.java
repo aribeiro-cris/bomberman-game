@@ -1,7 +1,6 @@
 package project.bomberman;
 
 import java.util.ArrayList;
-import java.util.ListIterator;
 
 public class Game {
 
@@ -25,11 +24,11 @@ public class Game {
         players = new Players[numberOfPlayers];
         keyboard = new KeyboardLogic();
         //human goes to index zero
-        players[0] = PlayersFactory.getNewBomberman(background, initialPosition(background, 0), 25.80,Game.RESOURCES_PREFIX + "NeoBattleIcon.png");
+        players[0] = PlayersFactory.getNewBomberman(background, initialPosition(0), 25.80,Game.RESOURCES_PREFIX + "NeoBattleIcon.png");
         System.out.println("test to see if the bomberman was created.");
-        //AIPlayers start in index 1
+        //PCPlayers start on index 1
         for (int i = 1; i < players.length; i++) {
-            players[i] = PlayersFactory.getNewPcPlayers(background, initialPosition(background, i), 25.80, Game.RESOURCES_PREFIX + "PcPlayers" + i + ".png");
+            players[i] = PlayersFactory.getNewPcPlayers(background, initialPosition(i), 25.80, Game.RESOURCES_PREFIX + "PcPlayers" + i + ".png");
             System.out.println("test to see if the PC Player was created.");
         }
     }
@@ -43,22 +42,25 @@ public class Game {
 
             movePlayers();
             bombManagement();
+            collisionPlayerBomb();
             t++;
         }
         keyboard.keyboardStopped();
     }
 
     public void movePlayers() {
-        players[0].setDirection(keyboard.getDirection());
-        Bomb bomb = players[0].dropBomb(keyboard.getRequestBomb(), background);
-
-        if(bomb != null) {
-            bombs.add(bomb);
+        if(players[0].getNumberLives() > 0) {
+            players[0].setDirection(keyboard.getDirection());
+            Bomb bomb = players[0].dropBomb(keyboard.getRequestBomb(), background);
+            if (bomb != null) {
+                bombs.add(bomb);
+            }
         }
 
-        //players[0].move(background);
         for (int i = 0; i < players.length; i++) {
-            players[i].move(background);
+            if(players[i].getNumberLives() > 0) {
+                players[i].move(background);
+            }
         }
     }
 
@@ -70,8 +72,27 @@ public class Game {
             }
         }
     }
+
+    public void collisionPlayerBomb() {
+        for(int i = 0; i < players.length; i++) {
+            if(!players[i].isImune()) {
+                for(int j = 0; j < bombs.size(); j++) {
+                    if(bombs.get(j).isExplosion()) {
+                        if (bombs.get(j).checkPicturesExplosionOverlapPlayer(players[i].getPos().getCol(), players[i].getPos().getRow())) {
+                            players[i].decrementLives();
+                            if (players[i].getNumberLives() == 0) {
+                                players[i].deletePicture();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
     //defines initial position for all Players
-    public int[] initialPosition(Background background, int indexPlayer) {
+    public int[] initialPosition(int indexPlayer) {
         int[] coordinates = new int[2]; //takes y and x positions
 
         //800 / 31 cols x = 25.81
