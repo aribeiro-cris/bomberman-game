@@ -1,14 +1,12 @@
 package project.bomberman;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-
 public class Bomb {
 
     final static double length = 25.80; //CellSize
-    private Position pos;
     private Picture bomb;
-    private static int bombX;
-    private static int bombY;
+    private int bombX;
+    private int bombY;
     private int timer;
     private boolean explosion = false;
     private Background background;

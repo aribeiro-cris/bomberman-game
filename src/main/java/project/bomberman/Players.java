@@ -59,4 +59,8 @@ public class Players {
         }
         return imune;
     }
+
+    public boolean getTimeToDropBomb(){
+        return false;
+    }
 }

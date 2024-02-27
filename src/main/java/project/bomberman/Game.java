@@ -35,7 +35,7 @@ public class Game {
 
     public void start() throws InterruptedException {
         int t = 0;
-        while (t < 1000) {
+        while (t < 1000 && !endOfGame()) {
 
             // Pause for a while
             Thread.sleep(delay);
@@ -49,16 +49,26 @@ public class Game {
     }
 
     public void movePlayers() {
-        if(players[0].getNumberLives() > 0) {
-            players[0].setDirection(keyboard.getDirection());
-            Bomb bomb = players[0].dropBomb(keyboard.getRequestBomb(), background);
-            if (bomb != null) {
-                bombs.add(bomb);
-            }
-        }
 
+        Bomb bomb;
+        boolean requestBomb = false;
         for (int i = 0; i < players.length; i++) {
             if(players[i].getNumberLives() > 0) {
+                if(i == 0){
+                    if(players[0].getNumberLives() > 0) {
+                        players[0].setDirection(keyboard.getDirection());
+                        requestBomb = keyboard.getRequestBomb();
+                    }
+                }
+                else{
+                    if(players[i].getTimeToDropBomb()){
+                        requestBomb = true;
+                    }
+                }
+                bomb = players[i].dropBomb(requestBomb, background);
+                if (bomb != null) {
+                    bombs.add(bomb);
+                }
                 players[i].move(background);
             }
         }
@@ -73,6 +83,19 @@ public class Game {
         }
     }
 
+    public boolean endOfGame() {
+        int countDefeatedPlayers = 0;
+
+        for(int i = 0; i < players.length; i++) {
+            if (players[i].getNumberLives() == 0) {
+                countDefeatedPlayers++;
+            }
+        }
+        if(countDefeatedPlayers > 2){
+            return true;
+        }
+        return false;
+    }
     public void collisionPlayerBomb() {
         for(int i = 0; i < players.length; i++) {
             if(!players[i].isImune()) {

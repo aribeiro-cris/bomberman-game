@@ -4,13 +4,18 @@ import java.util.Random;
 
 public class PcPlayers extends Players {
 
+    private int timerBomb;
+    private Random rand;
+    private int timerRandom;
     public PcPlayers(Background background, int[] coordinates, double CellSize, String picture) {
         super(background, coordinates, CellSize, picture);
+
+        rand = new Random();
+        timerRandom = rand.nextInt(300) + 60;
     }
 
     @Override
     public void move(Background background) {
-        Random rand = new Random();
         int randomValue = rand.nextInt(4);
 
         switch (randomValue) {
@@ -36,5 +41,15 @@ public class PcPlayers extends Players {
                 }
                 break;
         }
+    }
+
+    @Override
+    public boolean getTimeToDropBomb() {
+        timerRandom--;
+        if(timerRandom == 0) {
+            timerRandom = rand.nextInt(60);
+            return true;
+        }
+        return false;
     }
 }
