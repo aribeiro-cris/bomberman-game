@@ -15,7 +15,7 @@ public class Players {
         imune = false;
     }
 
-    public void move(Background background) {
+    public void move(Background background, BoxMatrix boxMatrix) {
 
     }
 
@@ -29,7 +29,7 @@ public class Players {
 
     public Bomb dropBomb(Boolean requestBomb, Background background) {
         if(requestBomb) {
-            Bomb bomb = new Bomb(pos, background);
+            Bomb bomb = new Bomb(pos.getCol(), pos.getRow(), background);
             return bomb;
         } else {
             return null;

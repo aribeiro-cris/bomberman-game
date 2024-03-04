@@ -1,6 +1,7 @@
 package project.bomberman;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Game {
 
@@ -12,14 +13,18 @@ public class Game {
     private int delay;
     static KeyboardLogic keyboard;
     private ArrayList<Bomb> bombs = new ArrayList<>();
+    private BoxMatrix boxMatrix;
 
     public Game(int delay) {
         this.background = new Background();
         this.delay = delay;
+        this.boxMatrix = new BoxMatrix(background.getCols(), background.getRows());
     }
 
     public void init() {
         Background background = new Background();
+
+        boxMatrix.buildMapLayout(background);
 
         players = new Players[numberOfPlayers];
         keyboard = new KeyboardLogic();
@@ -69,7 +74,7 @@ public class Game {
                 if (bomb != null) {
                     bombs.add(bomb);
                 }
-                players[i].move(background);
+                players[i].move(background, boxMatrix);
             }
         }
     }

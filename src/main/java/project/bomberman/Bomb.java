@@ -23,9 +23,9 @@ public class Bomb {
     private static final int explosionBotMid = 7;
     private static final int explosionBotEnd = 8;
 
-    public Bomb(Position pos, Background background) {
-        bombX = pos.getCol();
-        bombY = pos.getRow();
+    public Bomb(int x, int y, Background background) {
+        bombX = x;
+        bombY = y;
         bomb = new Picture(bombX *length, bombY *length, Game.RESOURCES_PREFIX + "bomb.png");
         timer = 30;
         this.background = background;
