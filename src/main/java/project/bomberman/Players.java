@@ -1,6 +1,8 @@
 package project.bomberman;
 
-public class Players {
+import java.util.ArrayList;
+
+public abstract class Players {
 
     protected Position pos;
     protected String direction;
@@ -13,10 +15,6 @@ public class Players {
         direction = "stop";
         numberLives = 3;
         imune = false;
-    }
-
-    public void move(Background background, BoxMatrix boxMatrix) {
-
     }
 
     public Position getPos() {
@@ -59,6 +57,8 @@ public class Players {
         }
         return imune;
     }
+
+    public abstract void move(Background background, BoxMatrix boxMatrix, ArrayList<Bomb> bombs);
 
     public boolean getTimeToDropBomb(){
         return false;

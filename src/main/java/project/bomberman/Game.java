@@ -73,15 +73,15 @@ public class Game {
                 if (bomb != null) {
                     bombs.add(bomb);
                 }
-                players[i].move(background, boxMatrix);
+                players[i].move(background, boxMatrix, bombs);
             }
         }
     }
 
     public void bombManagement() {
         for(int i = 0; i < bombs.size(); i++) {
-            if(bombs.get(i).decrementTimer() == 0) {
-                bombs.get(i).deleteBomb();
+            if(bombs.get(i).decrementTimer(boxMatrix) == 0) {
+                bombs.get(i).deleteBombAndBoxes(boxMatrix);
                 bombs.remove(i);
             }
         }

@@ -16,4 +16,7 @@ public class Box {
         box.draw();
     }
 
+    public void deleteBox() {
+        this.box.delete();
+    }
 }

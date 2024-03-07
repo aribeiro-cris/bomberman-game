@@ -1,12 +1,13 @@
 package project.bomberman;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class PcPlayers extends Players {
 
-    private int timerBomb;
     private Random rand;
     private int timerRandom;
+
     public PcPlayers(Background background, int[] coordinates, double CellSize, String picture) {
         super(background, coordinates, CellSize, picture);
 
@@ -15,7 +16,7 @@ public class PcPlayers extends Players {
     }
 
     @Override
-    public void move(Background background, BoxMatrix boxMatrix) {
+    public void move(Background background, BoxMatrix boxMatrix, ArrayList<Bomb> bombs) {
         int randomValue = rand.nextInt(4);
 
         switch (randomValue) {

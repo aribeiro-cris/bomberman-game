@@ -1,5 +1,7 @@
 package project.bomberman;
 
+import java.util.ArrayList;
+
 public class Bomberman extends Players {
 
     public Bomberman(Background background, int[] coordinates, double CellSize, String picture) {
@@ -7,7 +9,7 @@ public class Bomberman extends Players {
     }
 
     @Override
-    public void move(Background background, BoxMatrix boxMatrix) {
+    public void move(Background background, BoxMatrix boxMatrix, ArrayList<Bomb> bombs) {
         if (direction != "stop") {
             if (direction == "left") {
                 if (!background.getObstaculesPosition(pos.getCol() - 1, pos.getRow()) && (boxMatrix.getBoxes(pos.getCol() - 1, pos.getRow()) == null)) {
