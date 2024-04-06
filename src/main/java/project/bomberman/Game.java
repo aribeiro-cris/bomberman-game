@@ -39,6 +39,10 @@ public class Game {
 
     public void start() throws InterruptedException {
         int t = 0;
+
+        Sound music = new Sound();
+        music.playSound();
+
         while (t < 1000 && !endOfGame()) {
 
             // Pause for a while
@@ -49,6 +53,8 @@ public class Game {
             collisionPlayerBomb();
             t++;
         }
+        
+        music.stopSound();
         keyboard.keyboardStopped();
     }
 
