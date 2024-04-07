@@ -1,8 +1,6 @@
 package project.bomberman;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-import javax.swing.Box;
-
 public class Bomb {
 
     final static double length = 25.80; //CellSize

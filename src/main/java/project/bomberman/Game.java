@@ -40,9 +40,10 @@ public class Game {
     public void start() throws InterruptedException {
         int t = 0;
 
+        /*
         Sound music = new Sound();
         music.playSound();
-
+        */
         while (t < 1000 && !endOfGame()) {
 
             // Pause for a while
@@ -54,7 +55,7 @@ public class Game {
             t++;
         }
         
-        music.stopSound();
+        //music.stopSound();
         keyboard.keyboardStopped();
     }
 
@@ -81,6 +82,7 @@ public class Game {
                 }
                 players[i].move(background, boxMatrix, bombs);
             }
+            requestBomb = false;
         }
     }
 
